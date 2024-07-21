@@ -1,0 +1,48 @@
+services:
+
+  paradox-api:
+    build:
+      context: api
+    image: localhost/paradox-api
+    container_name: paradox-api
+    init: true
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - paradox:/data    
+    networks:
+      - paradox-ctl
+    environment:
+      - MQTT_URL=${MQTT_URL:-tcp://mosquitto}
+      - MQTT_USERNAME=${MQTT_USERNAME}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+      - MQTT_TOPIC_PREFIX=${MQTT_TOPIC:-paradox}
+    restart: unless-stopped
+
+  paradox-ui:
+    build:
+      context: ui
+    image: localhost/paradox-ui
+    container_name: paradox-ui
+    init: true
+    networks:
+      - paradox-ctl
+    restart: unless-stopped
+
+  paradox-web:
+    image: nginx:stable-alpine-slim
+    container_name: paradox-web
+    volumes:
+      - "./config/nginx/nginx.conf:/etc/nginx/nginx.conf"
+    networks:
+      - paradox-ctl
+    depends_on:
+      - paradox-ui
+      - paradox-api
+    restart: unless-stopped
+
+volumes:
+  paradox:
+
+networks:
+  paradox-ctl:
