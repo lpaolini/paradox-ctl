@@ -1,0 +1,8 @@
+{
+    "client": "info",
+    "command": "info",
+    "main": "info",
+    "panel": "info",
+    "scheduler": "info",
+    "state": "info"
+}

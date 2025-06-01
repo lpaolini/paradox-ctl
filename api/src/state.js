@@ -1,6 +1,6 @@
 const _ = require('lodash')
 const {readFileSync, writeFileSync} = require('fs')
-const log = require('./log')
+const log = require('./log').getLogger('state')
 
 const states = {}
 const events = {}

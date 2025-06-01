@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const log = require('./log')
+const log = require('./log').getLogger('scheduler')
 const {config: {schedules}, isArmed} = require('./state')
 const {areaCommand} = require('./command')
 const {DAYS} = require('./days')

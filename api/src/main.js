@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const log = require('./log')
+const log = require('./log').getLogger('main')
 const {updateEvents, updateState, updateSchedule, updateExclusion} = require('./state')
 const {panelMessage$} = require('./panel')
 const {broadcast, clientMessage$} = require('./client')
@@ -8,12 +8,12 @@ const {initScheduler} = require('./scheduler')
 
 const getValue = value => {
     switch (value) {
-    case 'True':
-        return true
-    case 'False':
-        return false
-    default:
-        return value
+        case 'True':
+            return true
+        case 'False':
+            return false
+        default:
+            return value
     }
 }
 

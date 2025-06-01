@@ -1,6 +1,6 @@
 const {panelCommand} = require('./panel')
 const {config: {exclusions}} = require('./state')
-const log = require('./log')
+const log = require('./log').getLogger('command')
 
 const ARM_COMMANDS = ['arm', 'arm_instant', 'arm_stay', 'arm_force']
 

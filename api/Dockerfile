@@ -11,6 +11,7 @@ RUN npm install
 
 # COPY --from=config . ${TARGET}/config
 COPY ./src/ ${TARGET}/src
+COPY ./config/ ${TARGET}/config
 COPY --chmod=775 ./start.sh ${TARGET}/
 
 CMD ./start.sh

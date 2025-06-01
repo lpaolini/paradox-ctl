@@ -2,7 +2,7 @@ const mqtt = require('mqtt')
 const _ = require('lodash')
 const {Subject, map, ReplaySubject} = require('rxjs')
 // const {createHash, randomBytes} = require('crypto')
-const log = require('./log')
+const log = require('./log').getLogger('panel')
 
 const TOPIC_PREFIX = process.env.MQTT_TOPIC_PREFIX || 'paradox-pai'
 
@@ -88,16 +88,16 @@ panel.on('message', (topic, message) => {
     const value = message.toString()
     try {
         switch (key) {
-        case 'events.raw':
-            handleEvent(value)
-            break
-        case 'states.challenge':
-            handleChallenge(value)
-            break
-        default:
-            if (key.startsWith('states.') || key.startsWith('definitions.')) {
-                handleState(key, value)
-            }
+            case 'events.raw':
+                handleEvent(value)
+                break
+            case 'states.challenge':
+                handleChallenge(value)
+                break
+            default:
+                if (key.startsWith('states.') || key.startsWith('definitions.')) {
+                    handleState(key, value)
+                }
         }
     } catch (error) {
         log.error('Error parsing MQTT message', error)
