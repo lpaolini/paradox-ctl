@@ -1,4 +1,4 @@
-import {Accordion, AccordionDetails, AccordionSummary, Box, Typography} from '@mui/material'
+import {Accordion, AccordionDetails, AccordionSummary, Box, Typography, Stack} from '@mui/material'
 import {Notifications, NotificationsActive, NotificationsOutlined, Schedule, TimerOutlined, Warning} from '@mui/icons-material'
 import {AreaDetails} from './AreaDetails'
 import {AreaState} from './AreaState'
@@ -30,12 +30,18 @@ const renderTrouble = ({trouble}) => {
     return null
 }
 
-const renderSchedule = (schedules) =>
-    // Object.entries(schedules).some( ([, {arm: {enabled: armEnabled}, disarm: {enabled: disarmEnabled}}]) => armEnabled || disarmEnabled)
-    Object.keys(schedules).length
-        ? <Schedule color='info'/>
-        : null
-
+const renderSchedule = (area, schedules) => {
+    const areaSchedules = Object.values(schedules[area] || {})
+    const scheduledArm = Object.values(areaSchedules)
+        .some(areaSchedule => areaSchedule?.arm?.enabled)
+    const scheduledDisarm = Object.values(areaSchedules)
+        .some(areaSchedule => areaSchedule?.disarm?.enabled)
+    return [
+        scheduledArm ? <Schedule key='autoArm' color='error'/> : null,
+        scheduledDisarm ? <Schedule key='autoDisarm' color='success'/> : null,
+    ]
+}
+    
 const renderAreaName = name =>
     <Typography variant='overline' sx={{
         display: 'flex',
@@ -110,16 +116,15 @@ export const Area = ({state = {}, definition = {}, events, exclusions, schedules
             alignItems: 'center',
             justifyContent: 'space-between'
         }}>
-            <Box sx={{
-                display: 'flex',
-                alignItems: 'center'
-            }}>
+            <Box display='flex' flexDirection='row' alignItems='center' gap={1}>
                 {renderAlarm(area)}
                 {renderTrouble(area)}
-                {renderSchedule(schedules)}
                 {renderAreaName(name)}
             </Box>
-            <AreaState area={area}/>
+            <Box display='flex' flexDirection='row' alignItems='center' gap={1}>
+                {renderSchedule(name, schedules)}
+                <AreaState area={area}/>
+            </Box>
         </Box>
 
     const renderAreaDetails = () =>
