@@ -13,7 +13,7 @@ const checkArmed = (area, schedule, currentDate, lastCheck) => {
         log.debug(`Ensure armed area: ${area}`)
         if (!isArmed(area)) {
             log.info(`Auto arming area: ${area}`)
-            areaCommand(area, 'arm_instant')
+            areaCommand(area, 'arm_force')
         }
     }
 }
