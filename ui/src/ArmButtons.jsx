@@ -1,4 +1,4 @@
-import {Box, Button, Grid} from '@mui/material'
+import {Box, Button} from '@mui/material'
 import {useState} from 'react'
 import {Auth} from './Auth'
 
@@ -53,53 +53,35 @@ export const ArmButtons = ({area, areaCommand}) => {
     }
 
     return (
-        <Box>
-            <Grid container spacing={.5} sx={{
-                display: 'flex',
-                justifyContent: 'center'
-            }}>
-                <Grid>
-                    <Button
-                        variant='contained'
-                        color='error'
-                        disabled={!isDisarmed()}
-                        onClick={onArmInstant}>
-                        Instant
-                    </Button>
-                </Grid>
-                <Grid>
-                    <Button
-                        variant='contained'
-                        color='error'
-                        disabled={!isDisarmed()}
-                        onClick={onArmAway}>
-                        Away
-                    </Button>
-                </Grid>
-                <Grid>
-                    <Button
-                        variant='contained'
-                        color='error'
-                        disabled={!isDisarmed()}
-                        onClick={onArmStay}>
-                        Stay
-                    </Button>
-                </Grid>
-                <Grid>
-                    <Button
-                        variant='contained'
-                        color='error'
-                        disabled={isArmed()}
-                        onClick={onArmForce}>
-                        Force
-                    </Button>
-                </Grid>
-            </Grid>
-            <Auth
-                open={!!command}
-                onClose={onClose}
-                onCode={onCode}
-            />
+        <Box display='flex' flexDirection='row' alignItems='center' justifySelf='center' gap={1}>
+            <Button
+                variant='contained'
+                color='error'
+                disabled={!isDisarmed()}
+                onClick={onArmInstant}>
+                Instant
+            </Button>
+            <Button
+                variant='contained'
+                color='error'
+                disabled={!isDisarmed()}
+                onClick={onArmAway}>
+                Away
+            </Button>
+            <Button
+                variant='contained'
+                color='error'
+                disabled={!isDisarmed()}
+                onClick={onArmStay}>
+                Stay
+            </Button>
+            <Button
+                variant='contained'
+                color='error'
+                disabled={isArmed()}
+                onClick={onArmForce}>
+                Force
+            </Button>
         </Box>
     )
 }

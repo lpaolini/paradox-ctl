@@ -2,7 +2,6 @@ import {Accordion, AccordionDetails, AccordionSummary, Box, Typography, Stack} f
 import {Notifications, NotificationsActive, NotificationsOutlined, Schedule, TimerOutlined, Warning} from '@mui/icons-material'
 import {AreaDetails} from './AreaDetails'
 import {AreaState} from './AreaState'
-import { DateTime } from 'luxon'
 
 const renderAlarm = ({audible_alarm, silent_alarm, was_in_alarm, alarm_in_memory, arm, ready, exit_delay, entry_delay}) => {
     if (audible_alarm || silent_alarm) {
